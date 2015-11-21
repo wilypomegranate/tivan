@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from models import Camera
+from models import Camera, Event, CapturePicture, CaptureVideo
 from serializers import CameraSerializer, EventSerializer, CapturePictureSerializer, CaptureVideoSerializer
 
 class CameraViewSet(viewsets.ModelViewSet):

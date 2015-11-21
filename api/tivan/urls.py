@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from rest_framework import routers
+from api import views
+
+router = routers.DefaultRouter()
+router.register(r'camera', views.CameraViewSet)
+router.register(r'event', views.EventViewSet)
+router.register(r'capture_picture', views.CapturePictureViewSet)
+router.register(r'capture_video', views.CaptureVideoViewSet)
 
 urlpatterns = [
+    url(r'^', include(router.urls)),
     url(r'^admin/', include(admin.site.urls)),
 ]
