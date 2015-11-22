@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name uiApp.controller:AboutCtrl
+ * @name tivanApp.controller:AboutCtrl
  * @description
  * # AboutCtrl
- * Controller of the uiApp
+ * Controller of the tivanApp
  */
-angular.module('uiApp')
+angular.module('tivanApp')
   .controller('AboutCtrl', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',

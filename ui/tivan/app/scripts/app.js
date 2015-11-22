@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name uiApp
+ * @name tivanApp
  * @description
- * # uiApp
+ * # tivanApp
  *
  * Main module of the application.
  */
 angular
-  .module('uiApp', [
+  .module('tivanApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
