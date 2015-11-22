@@ -3,7 +3,7 @@ from django.db import models
 class Camera(models.Model):
     id = models.IntegerField(primary_key=True)
     description = models.TextField(default='')
-    stream_url = models.CharField(max_length=255)
+    stream_url = models.CharField(max_length=255, blank=True)
 
 class Event(models.Model):
     camera = models.ForeignKey('Camera')
@@ -20,12 +20,12 @@ class Event(models.Model):
         unique_together = ('camera', 'start_time',)
 
 class CapturePicture(models.Model):
-    path = models.TextField()
+    path = models.TextField(unique=True)
     timestamp = models.DateTimeField()
     event = models.ForeignKey('Event')
 
 class CaptureVideo(models.Model):
-    path = models.TextField()
+    path = models.TextField(unique=True)
     start_time = models.DateTimeField()
     stop_time = models.DateTimeField(null=True)
     event = models.ForeignKey('Event')
