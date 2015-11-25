@@ -15,7 +15,6 @@ class CapturePictureSerializer(serializers.ModelSerializer):
     event_timestamp = serializers.DateTimeField(write_only=True)
     class Meta:
         model = CapturePicture
-#        fields = ('path', 'timestamp', 'event')
         read_only_fields = ('event',)
 
     def create(self, validated_data):
@@ -27,5 +26,16 @@ class CapturePictureSerializer(serializers.ModelSerializer):
         return cp
 
 class CaptureVideoSerializer(serializers.ModelSerializer):
+    camera = serializers.PrimaryKeyRelatedField(write_only=True, queryset=Camera.objects.all())
+    event_timestamp = serializers.DateTimeField(write_only=True)
     class Meta:
         model = CaptureVideo
+        read_only_fields = ('event')
+
+    def create(self, validated_data):
+        camera = validated_data.pop('camera')
+        event_timestamp = validated_data.pop('event_timestamp')
+        event = Event.objects.filter(camera=camera, start_time=event_timestamp).all()[0]
+        cp = CapturePicture(event=event, **validated_data)
+        cp.save()
+        return cp
