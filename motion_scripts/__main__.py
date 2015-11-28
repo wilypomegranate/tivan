@@ -2,6 +2,7 @@ import argparse
 import datetime
 import requests
 import json
+import time
 
 url = 'http://localhost:8000'
 
@@ -56,11 +57,55 @@ def save_picture(args):
         'camera': args.camera
     }
 
-    print json.dumps(picture)
+    #print json.dumps(picture)
     r = requests.post(url + '/capture_picture/', data=json.dumps(picture), headers=JSON_HEADERS)
     if not r.ok:
         print r.text
         raise Exception('Failed to post capture picture')
+
+def start_video(args):
+    time.sleep(1)
+    video = {
+        'path': args.filename,
+        'start_time': args.timestamp.isoformat(),
+        'event_timestamp': args.event_timestamp.isoformat(),
+        'camera': args.camera
+    }
+
+    print json.dumps(video)
+    r = requests.post(url + '/capture_video/', data=json.dumps(video), headers=JSON_HEADERS)
+    if not r.ok:
+        print r.text
+        raise Exception('Failed to post capture video')
+
+def end_video(args):
+    time.sleep(1)
+    video = {
+        'path': args.filename,
+        'timestamp': args.timestamp.isoformat()
+    }
+
+    print json.dumps(video)
+
+    r = requests.put(url + '/video/path/', data=json.dumps(video), headers=JSON_HEADERS)
+    if not r.ok:
+        print r.text
+        raise Exception('Failed to update capture video')
+
+def end_event(args):
+    time.sleep(1)
+    event = {
+        'event_timestamp': args.event_timestamp.isoformat(),
+        'camera': args.camera,
+        'timestamp': args.timestamp.isoformat()
+    }
+
+    print json.dumps(event)
+
+    r = requests.put(url + '/event_end/', data=json.dumps(event), headers=JSON_HEADERS)
+    if not r.ok:
+        print r.text
+        raise Exception('Failed to update event stop time')
 
 def main():
     parser = argparse.ArgumentParser()
@@ -86,18 +131,22 @@ def main():
     save_picture_parser.set_defaults(func=save_picture)
 
     start_video_parser = subparsers.add_parser('start_video')
-    start_video_parser.add_argument("timestamp", type=valid_timestamp)
+    start_video_parser.add_argument("event_timestamp", type=valid_timestamp)
     start_video_parser.add_argument("camera", type=int)
+    start_video_parser.add_argument("timestamp", type=valid_timestamp)
     start_video_parser.add_argument("filename", type=str)
+    start_video_parser.set_defaults(func=start_video)
 
     end_video_parser = subparsers.add_parser('end_video')
     end_video_parser.add_argument("timestamp", type=valid_timestamp)
-    end_video_parser.add_argument("camera", type=int)
     end_video_parser.add_argument("filename", type=str)
+    end_video_parser.set_defaults(func=end_video)
 
     event_end_parser = subparsers.add_parser('event_end')
-    event_end_parser.add_argument("timestamp", type=valid_timestamp)
+    event_end_parser.add_argument("event_timestamp", type=valid_timestamp)
     event_end_parser.add_argument("camera", type=int)
+    event_end_parser.add_argument("timestamp", type=valid_timestamp)
+    event_end_parser.set_defaults(func=end_event)
 
     args = parser.parse_args()
     args.func(args)

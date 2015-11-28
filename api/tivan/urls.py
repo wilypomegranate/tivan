@@ -26,5 +26,7 @@ router.register(r'capture_video', views.CaptureVideoViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),
+    url(r'^video/path/', views.CaptureVideoStopTimeUpdate.as_view()),
+    url(r'^event_end/', views.EventStopTimeUpdate.as_view()),
     url(r'^admin/', include(admin.site.urls)),
 ]
