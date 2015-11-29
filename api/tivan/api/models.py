@@ -20,12 +20,12 @@ class Event(models.Model):
         unique_together = ('camera', 'start_time',)
 
 class CapturePicture(models.Model):
-    path = models.TextField(unique=True)
+    path = models.CharField(max_length=255, unique=True)
     timestamp = models.DateTimeField()
     event = models.ForeignKey('Event')
 
 class CaptureVideo(models.Model):
-    path = models.TextField(unique=True)
+    path = models.CharField(max_length=255, unique=True)
     start_time = models.DateTimeField()
     stop_time = models.DateTimeField(null=True)
     event = models.ForeignKey('Event')

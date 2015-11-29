@@ -49,9 +49,10 @@ class EventList(views.APIView):
     def get(self, request):
         """Return a list of events with media information"""
         events = []
-        for event in Event.objects.all():
+        for event in Event.objects.order_by('-start_time').all():
             e = {
             'id': event.id,
+            'camera': event.camera.id,
             'start_time': event.start_time,
             'stop_time': event.stop_time,
             'pictures': [ cp.id for cp in CapturePicture.objects.filter(event=event).all() ]
