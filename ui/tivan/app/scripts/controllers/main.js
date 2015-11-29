@@ -8,10 +8,15 @@
  * Controller of the tivanApp
  */
 angular.module('tivanApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function ($scope, $http) {
+    $scope.events = [];
+
+    $http.get('/events/').success(function(data){
+        $scope.events = data;
+    })
+
+    $scope.getVideoFromEvent = function(event_id) {
+        return '/video/retrieval/' + event_id + '/';
+    }
+
   });

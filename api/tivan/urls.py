@@ -28,5 +28,8 @@ urlpatterns = [
     url(r'^', include(router.urls)),
     url(r'^video/path/', views.CaptureVideoStopTimeUpdate.as_view()),
     url(r'^event_end/', views.EventStopTimeUpdate.as_view()),
+    url(r'^events/', views.EventList.as_view()),
+    url(r'^picture/retrieval/(?P<pk>[0-9]+)/', views.CapturePictureRetrieval.as_view()),
+    url(r'^video/retrieval/(?P<event>[0-9]+)/', views.CaptureVideoRetrieval.as_view()),
     url(r'^admin/', include(admin.site.urls)),
 ]

@@ -25,6 +25,8 @@ module.exports = function (grunt) {
     dist: 'dist'
   };
 
+  grunt.loadNpmTasks('grunt-connect-proxy');
+
   // Define the configuration for all the tasks
   grunt.initConfig({
 
@@ -75,6 +77,14 @@ module.exports = function (grunt) {
         hostname: '0.0.0.0',
         livereload: 35729
       },
+      proxies: [
+          {
+            context: '/',
+            host: 'cronus.home',
+            port: 8000,
+            changeOrigin: false
+          }
+      ],
       livereload: {
         options: {
           open: false,
@@ -89,7 +99,8 @@ module.exports = function (grunt) {
                 '/app/styles',
                 connect.static('./app/styles')
               ),
-              connect.static(appConfig.app)
+              connect.static(appConfig.app),
+              require('grunt-connect-proxy/lib/utils').proxyRequest
             ];
           }
         }
@@ -436,6 +447,7 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'concurrent:server',
+      'configureProxies',
       'postcss:server',
       'connect:livereload',
       'watch'

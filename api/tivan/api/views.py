@@ -1,5 +1,6 @@
 from rest_framework import viewsets, generics, views
 from rest_framework.response import Response
+from django.http import Http404, HttpResponse, StreamingHttpResponse
 
 from models import Camera, Event, CapturePicture, CaptureVideo
 from serializers import CameraSerializer, EventSerializer, CapturePictureSerializer, CaptureVideoSerializer, CaptureVideoUpdateSerializer, EventUpdateSerializer
@@ -43,3 +44,40 @@ class EventStopTimeUpdate(generics.UpdateAPIView):
         if serializer.is_valid():
             serializer.update(request.data)
             return Response(serializer.data)
+
+class EventList(views.APIView):
+    def get(self, request):
+        """Return a list of events with media information"""
+        events = []
+        for event in Event.objects.all():
+            e = {
+            'id': event.id,
+            'start_time': event.start_time,
+            'stop_time': event.stop_time,
+            'pictures': [ cp.id for cp in CapturePicture.objects.filter(event=event).all() ]
+            }
+            events.append(e)
+        return Response(events)
+
+class CapturePictureRetrieval(views.APIView):
+    def get_object(self, pk):
+        try:
+            return CapturePicture.objects.get(pk=pk)
+        except CapturePicture.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        picture = self.get_object(pk)
+        return HttpResponse(open(picture.path, 'rb').read(), content_type='image/jpg')
+
+class CaptureVideoRetrieval(views.APIView):
+
+    def get_videos(self, event):
+        videos = CaptureVideo.objects.filter(event=event).all()
+        print videos
+        for video in videos:
+            #TODO - Yield a buffer here
+            yield(open(video.path, 'rb').read())
+
+    def get(self, request, event):
+        return StreamingHttpResponse(self.get_videos(event), content_type='video/ogg')
