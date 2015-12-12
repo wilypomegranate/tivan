@@ -29,6 +29,11 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/camera', {
+        templateUrl: 'views/camera.html',
+        controller: 'CameraCtrl',
+        controllerAs: 'camera'
+      })
       .otherwise({
         redirectTo: '/'
       });

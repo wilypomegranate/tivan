@@ -49,7 +49,7 @@ class EventList(views.APIView):
     def get(self, request):
         """Return a list of events with media information"""
         events = []
-        for event in Event.objects.order_by('-start_time').all():
+        for event in Event.objects.order_by('-start_time').all()[:25]:
             e = {
             'id': event.id,
             'camera': event.camera.id,
@@ -82,3 +82,14 @@ class CaptureVideoRetrieval(views.APIView):
 
     def get(self, request, event):
         return StreamingHttpResponse(self.get_videos(event), content_type='video/ogg')
+
+class LiveCameraStream(views.APIView):
+
+    def get_stream(self, stream_url):
+        req = urllib2.Request(stream_url)
+        response = urllib2.urlopen(req)
+        while True:
+            yield(response.read())
+
+    def get(self, request, stream_url):
+        return StreamingHttpResponse(self.get_stream(stream_url), content_type='image/jpg')
