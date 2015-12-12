@@ -1,3 +1,4 @@
+import urllib2
 from rest_framework import viewsets, generics, views
 from rest_framework.response import Response
 from django.http import Http404, HttpResponse, StreamingHttpResponse
@@ -85,11 +86,14 @@ class CaptureVideoRetrieval(views.APIView):
 
 class LiveCameraStream(views.APIView):
 
-    def get_stream(self, stream_url):
-        req = urllib2.Request(stream_url)
-        response = urllib2.urlopen(req)
+    def get_stream(self, response):
         while True:
-            yield(response.read())
+            foobar = response.read(4096)
+            yield foobar
+        #yield 'foo'
 
-    def get(self, request, stream_url):
-        return StreamingHttpResponse(self.get_stream(stream_url), content_type='image/jpg')
+    def get(self, request, pk):
+        camera = Camera.objects.get(id=pk)
+        req = urllib2.Request(camera.stream_url)
+        response = urllib2.urlopen(req)
+        return StreamingHttpResponse(self.get_stream(response), content_type=response.info().typeheader)

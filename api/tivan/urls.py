@@ -31,6 +31,6 @@ urlpatterns = [
     url(r'^events/', views.EventList.as_view()),
     url(r'^picture/retrieval/(?P<pk>[0-9]+)/', views.CapturePictureRetrieval.as_view()),
     url(r'^video/retrieval/(?P<event>[0-9]+)/', views.CaptureVideoRetrieval.as_view()),
-    url(r'^video/live/(?P<stream_url>\w+)/', views.LiveCameraStream.as_view()),
+    url(r'^video/live/(?P<pk>[0-9]+)/', views.LiveCameraStream.as_view()),
     url(r'^admin/', include(admin.site.urls)),
 ]
