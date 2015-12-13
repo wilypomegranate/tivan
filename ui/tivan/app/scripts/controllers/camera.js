@@ -10,7 +10,7 @@
 angular.module('tivanApp')
   .controller('CameraCtrl', function ($scope, $http) {
       $scope.cameras = [];
-      $http.get('/camera/').success(function(data){
+      $http.get('/api/camera/').success(function(data){
         $scope.cameras = data;
       })
   });

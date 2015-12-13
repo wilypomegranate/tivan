@@ -79,7 +79,7 @@ module.exports = function (grunt) {
       },
       proxies: [
           {
-            context: '/',
+            context: '/api',
             host: 'cronus.home',
             port: 8000,
             changeOrigin: false
