@@ -1,0 +1,23 @@
+  <md-content>
+    <header>
+      <acme-navbar creation-date="main.creationDate"></acme-navbar>
+    </header>
+
+    <!--<div class="techs" layout-align="center">
+      <md-card ng-repeat="awesomeThing in main.awesomeThings | orderBy:'rank'">
+        <md-card-content>
+          <img class="pull-right" ng-src="assets/images/{{ awesomeThing.logo }}" alt="{{ awesomeThing.title }}">
+          <h3 class="md-title">{{ awesomeThing.title }}</h3>
+          <p>{{ awesomeThing.description }}</p>
+        </md-card-content>
+        <div class="md-action-buttons">
+          <md-button ng-href="{{ awesomeThing.url }}">Website</md-button>
+        </div>
+      </md-card>
+    </div>
+-->
+    <div ng-repeat="event in main.events">
+    <img class="card-img-top" ng-src="/api/picture/retrieval/{{event.pictures[0]}}" alt="Card image cap" ng-href="{{main.getVideoFromEvent(event.id)}}"/>
+     <md-button ng-href="{{main.getVideoFromEvent(event.id)}}" class="md-raised md-primary">View Video</md-button>
+    </div>
+  </md-content>

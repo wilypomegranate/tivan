@@ -25,12 +25,12 @@ router.register(r'capture_picture', views.CapturePictureViewSet)
 router.register(r'capture_video', views.CaptureVideoViewSet)
 
 urlpatterns = [
-    url(r'^', include(router.urls)),
-    url(r'^video/path/', views.CaptureVideoStopTimeUpdate.as_view()),
-    url(r'^event_end/', views.EventStopTimeUpdate.as_view()),
-    url(r'^events/', views.EventList.as_view()),
-    url(r'^picture/retrieval/(?P<pk>[0-9]+)/', views.CapturePictureRetrieval.as_view()),
-    url(r'^video/retrieval/(?P<event>[0-9]+)/', views.CaptureVideoRetrieval.as_view()),
-    url(r'^video/live/(?P<pk>[0-9]+)/', views.LiveCameraStream.as_view()),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^api/', include(router.urls)),
+    url(r'^api/video/path/', views.CaptureVideoStopTimeUpdate.as_view()),
+    url(r'^api/event_end/', views.EventStopTimeUpdate.as_view()),
+    url(r'^api/events/', views.EventList.as_view()),
+    url(r'^api/picture/retrieval/(?P<pk>[0-9]+)/', views.CapturePictureRetrieval.as_view()),
+    url(r'^api/video/retrieval/(?P<event>[0-9]+)/', views.CaptureVideoRetrieval.as_view()),
+    url(r'^api/video/live/(?P<pk>[0-9]+)/', views.LiveCameraStream.as_view()),
+    url(r'^api/admin/', include(admin.site.urls)),
 ]
