@@ -1,0 +1,46 @@
+  <md-content>
+    <header>
+      <acme-navbar creation-date="camera.creationDate"></acme-navbar>
+    </header>
+
+    <!--<div class="techs" layout-align="center">
+      <md-card ng-repeat="awesomeThing in camera.awesomeThings | orderBy:'rank'">
+        <md-card-content>
+          <img class="pull-right" ng-src="assets/images/{{ awesomeThing.logo }}" alt="{{ awesomeThing.title }}">
+          <h3 class="md-title">{{ awesomeThing.title }}</h3>
+          <p>{{ awesomeThing.description }}</p>
+        </md-card-content>
+        <div class="md-action-buttons">
+          <md-button ng-href="{{ awesomeThing.url }}">Website</md-button>
+        </div>
+      </md-card>
+    </div>
+-->
+<!--
+    <div ng-repeat="event in camera.events">
+    <img class="card-img-top" ng-src="/api/picture/retrieval/{{event.pictures[0]}}" alt="Card image cap" ng-href="{{camera.getVideoFromEvent(event.id)}}"/>
+     <md-button ng-href="{{camera.getVideoFromEvent(event.id)}}" class="md-raised md-primary">View Video</md-button>
+    </div>
+    -->
+<!--
+    <md-card ng-repeat="event in camera.events">
+      <md-card-content>
+        <img class="card-img-top" ng-src="/api/picture/retrieval/{{event.pictures[0]}}" alt="Card image cap" ng-href="{{camera.getVideoFromEvent(event.id)}}"/>
+        <h3 class="md-title">Event {{ event.id }}</h3>
+        <p>Camera: {{ event.camera }}</p>
+        <p>Start Time: {{ event.start_time }}</p>
+        <p>Stop Time: {{ event.stop_time }}</p>
+      </md-card-content>
+      <div class="md-action-buttons">
+         <md-button ng-href="{{camera.getVideoFromEvent(event.id)}}" class="md-raised md-primary">View Video</md-button>
+      </div>
+    </md-card>
+-->
+<div layout="row" layout-sm="column" layout-xs="column" layout-wrap>
+  <div flex="33" ng-repeat="camera in camera.cameras">
+    <h4>Camera: {{camera.id}} Camera Description: {{camera.description}}</h4>
+    <img ng-src="{{camera.stream_url}}"></img>
+  </div>
+</div>
+
+  </md-content>

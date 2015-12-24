@@ -4,7 +4,7 @@ import requests
 import json
 import time
 
-url = 'http://localhost:8000'
+url = 'http://localhost:8000/api'
 
 def get_cameras():
     cameras = []
