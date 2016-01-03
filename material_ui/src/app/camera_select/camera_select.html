@@ -1,0 +1,17 @@
+  <md-content>
+    <header>
+    </header>
+
+      <md-input-container>
+        <label>Cameras</label>
+        <md-select ng-model="camera_select.camera">
+          <md-option ng-repeat="camera in camera_select.cameras" ng-value="camera">
+            Camera #{{camera.id}} Description: {{camera.description}}
+          </md-option>
+        </md-select>
+        </md-input-container>
+
+    <h4 ng-model="camera_select.camera">Camera: {{camera_select.camera.id}} Camera Description: {{camera_select.camera.description}}</h4>
+    <img ng-src="{{camera_select.getLiveCameraUrl(camera_select.camera.id)}}"></img>
+
+  </md-content>

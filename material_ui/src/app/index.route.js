@@ -19,6 +19,12 @@
         templateUrl: 'app/camera/camera.html',
         controller: 'CameraController',
         controllerAs: 'camera'
+      })
+      .state('camera_select', {
+        url: '/camera_select',
+        templateUrl: 'app/camera_select/camera_select.html',
+        controller: 'CameraSelectController',
+        controllerAs: 'camera_select'
       });
 
     $urlRouterProvider.otherwise('/');
