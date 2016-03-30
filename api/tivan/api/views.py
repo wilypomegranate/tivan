@@ -76,7 +76,7 @@ class CaptureVideoRetrieval(views.APIView):
 
     def get_videos(self, event):
         videos = CaptureVideo.objects.filter(event=event).all()
-        print videos
+        print(videos)
         for video in videos:
             #TODO - Yield a buffer here
             yield(open(video.path, 'rb').read())
