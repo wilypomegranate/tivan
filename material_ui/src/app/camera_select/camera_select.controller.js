@@ -23,5 +23,22 @@
       return 'api/video/live/' + camera_id;
     }
 
+    vm.changeCamera = function() {
+      $http.get('/api/camera/' + vm.camera.id + '/').success(function(data) {
+        console.log(data);
+        vm.hls.loadSource(data.stream_url);
+        vm.hls.attachMedia(video);
+        vm.hls.on(Hls.Events.MANIFEST_PARSED,function() {
+          video.play();
+        });
+      });
+    }
+
+    if(Hls.isSupported()) {
+      var video = document.getElementById('live');
+      vm.hls = new Hls();
+      vm.changeCamera();
+    }
+
   }
 })();

@@ -39,7 +39,7 @@
 <div layout="row" layout-sm="column" layout-xs="column" layout-wrap>
   <div flex="33" ng-repeat="camera in camera.cameras">
     <h4>Camera: {{camera.id}} Camera Description: {{camera.description}}</h4>
-    <img ng-src="{{camera.stream_url}}"></img>
+    <video width="640" height="400" controls livevideo />
   </div>
 </div>
 
