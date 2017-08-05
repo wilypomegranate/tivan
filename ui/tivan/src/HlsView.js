@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Hls from 'hls.js';
+import ReactHLS from 'react-hls';
 
 export default class HlsView extends Component {
   render() {
@@ -8,8 +8,12 @@ export default class HlsView extends Component {
     return (
       <div>
         {/* TODO - Need to lookup what this is */}
-        <Hls src={videoURL}/>
+        <ReactHLS url={videoURL} />
       </div>
     )
   }
+};
+
+HlsView.propTypes = {
+  videoURL: React.PropTypes.string.isRequired
 };
